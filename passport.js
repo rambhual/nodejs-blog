@@ -1,5 +1,6 @@
 const passport = require("passport");
 const jwtStrategy = require("passport-jwt").Strategy;
+const GooglePlusToken = require("passport-google-plus-token");
 const localStrategy = require("passport-local").Strategy;
 const { ExtractJwt } = require("passport-jwt");
 const User = require("./models/user");
@@ -21,6 +22,17 @@ passport.use(
         done(null, false);
       }
     }
+  )
+);
+
+// Google plus oauth strategy
+passport.use(
+  new GooglePlusToken(
+    {
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+    },
+    async (accessToken, refreshToken, profile, done) => {}
   )
 );
 
